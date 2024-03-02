@@ -16,9 +16,9 @@ export default function Page({searchParams}:{
   return (
     <div>
       <p>Dashboard Page</p>
-      <Map pins={[]}/>
+      <Map pins={["ChIJ3-glNDnkAGARQplx_kB1WaE"]}/>
       {/*Table要素*/}
-      <Table pins={placeIDs}></Table>
+      {/*<Table pins={placeIDs}></Table>*/}
     </div>
   );
 }

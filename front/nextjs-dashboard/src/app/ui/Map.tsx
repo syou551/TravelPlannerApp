@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState, useCallback, memo, createContext } from 'react';
 import { GoogleMap, MarkerF, useLoadScript, useJsApiLoader, Libraries } from '@react-google-maps/api'
 import { Library } from '@googlemaps/js-api-loader';
 
@@ -36,39 +36,43 @@ const Map = ({pins}:{pins? : string[]}) => {
     //#region State
     const [map, setMap] = useState<google.maps.Map | null>(null);
     const [places, setPlaces] = useState<google.maps.LatLng[] | null>(null);
+    const [ids, setIds] = useState<string[]>([]);
 
-    var request = {
-        query: '法隆寺',
-        fields: ['name', 'geometry'],
-      };
-
-    var placeIds : string[] | undefined = ["ChIJ3-glNDnkAGARQplx_kB1WaE"];
     //#endregion
     
     //#region event
     const onLoad = (map: google.maps.Map) => {
         map.setCenter(center);
         map.setZoom(13);
+        console.log("init...");
         setMap(map);
-        if(pins)placeIds = pins;
-        makeMarker();
+        if(pins != ids){
+            makeMarker(pins);
+        }
     };
 
     const onUnmount = useCallback(() => {}, []);
     //#endregion
 
     //placeId一覧からLatLngをセットする
-    const makeMarker = () =>{
+    const makeMarker = (placeIdArray : string[] | undefined) =>{
+        console.log("")
         var geocoder = new google.maps.Geocoder();
         const ids : google.maps.LatLng[] = [];
-        placeIds?.map((p)=>{
+        placeIdArray?.map((p)=>{
             geocoder.geocode({placeId: p})
             .then(({results})=>{
                 results.map((p)=>ids.push(p.geometry?.location))
                 setPlaces(ids);
             })
         });
+        
+        setIds(placeIdArray!);
     };
+
+    if(ids.length != 0 && ids != pins){
+        makeMarker(pins);
+    }
 
     return (
         <div className="flex justify-center items-center">
@@ -83,4 +87,4 @@ const Map = ({pins}:{pins? : string[]}) => {
     );
 };
   
-export default Map;
+export default memo(Map);
