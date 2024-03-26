@@ -4,6 +4,8 @@ import { useJsApiLoader } from '@react-google-maps/api'
 
 //searchの検索結果一覧Tableを表示するだけのComponentとしている
 //‘他の関数に今のところ意味なし
+const header : string[] = ["No","Name","Address","Other"];
+
 const Table = ({places}:{places? : google.maps.places.PlaceResult[]})=>{
     const { isLoaded, loadError } = useJsApiLoader({
         id: "google-map",
@@ -47,17 +49,16 @@ const Table = ({places}:{places? : google.maps.places.PlaceResult[]})=>{
         <table className='table-auto'>
             <thead className='bg-gray-100'>
                 <tr>
-                    <th className='px-4 py-2 md:px-16 lg:px-24'>No</th>
-                    <th className='px-4 py-2 md:px-16 lg:px-24'>Name</th>
-                    <th className='px-4 py-2 md:px-16 lg:px-24'>Address</th>
-                    <th className='px-4 py-2 md:px-16 lg:px-24'>Other</th>
+                    {header.map((p,index)=>(
+                        <th className='px-4 py-2 md:px-16 lg:px-24' key={index}>{p}</th>
+                    ))}
                 </tr>
             </thead>
             <tbody>
                 <tr key={3}>
-                    <td className='px-4 py-2 md:px-16 lg:px-24'>{3+1}</td>
+                    <td className='px-4 py-2 md:px-16 lg:px-24'>4</td>
                     <td className='px-4 py-2 md:px-16 lg:px-24'>{"hoge"}</td>
-                    <td className='px-4 py-2 md:px-16 lg:px-24'>{"addr"}</td>
+                    <td className='px-4 py-2 md:px-16 lg:px-24'>{"Dummy"}</td>
                     <td className='px-4 py-2 md:px-16 lg:px-24'>
                         <button className='flex rounded-md justify-center px-4 py-2 bg-blue-100 hover:bg-blue-400 hover:text-white'>Add</button>
                     </td>

@@ -19,9 +19,11 @@ const Header = ({Title} : {Title?: string}) =>{
         <>
         <header className="bg-white lg:w-full shadow-md mt-3">
             <nav className="flex justify-between items-center">
-                <div className="lg:flex-1 mb-3 ml-4">
+                <div className="flex lg:flex-1 mb-3 ml-4 w-5 h-5">
                     <Link href={"/"}>
-                        <Image src={""/*"/sample.jpg"*/} width={30} height={30} alt="App Icon" className=""></Image>
+                        <Image src={""/*"/sample.jpg"*/} width={30} height={30} alt="App Icon" className="">
+                            
+                        </Image>
                     </Link>
                 </div>
                 <p className="flex text-xl">{Title ? Title : ""}</p>
@@ -39,7 +41,7 @@ const Header = ({Title} : {Title?: string}) =>{
                 </div>
             </nav>
         </header>
-        <div className="flex items-center fixed right-[0%] mr-3">
+        <div className="flex items-center fixed right-[0%] mr-3 z-index-10 z-50 bg-white">
             <nav className="flex justify-center items-center">
                 <ul className={clsx("flex transition shadow-md items-center flex-col bg-gray-10",
                     {'hidden': !isShow,})}>

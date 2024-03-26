@@ -21,6 +21,7 @@ const markerLabel = (index : number): google.maps.MarkerLabel =>{
   const strIndex : string = (index+1)?.toString()!;
   return ( {
     text: strIndex,
+    color: "white",
     fontFamily: "sans-serif",
     fontSize: "15px",
     fontWeight: "bold",

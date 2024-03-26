@@ -20,8 +20,9 @@ const markerLabel = (index : number): google.maps.MarkerLabel =>{
     const strIndex : string = (index+1)?.toString()!;
     return ( {
       text: strIndex,
+      color: "white",
       fontFamily: "sans-serif",
-      fontSize: "15px",
+      fontSize: "20px",
       fontWeight: "bold",
     })
   };
@@ -61,16 +62,17 @@ const Map = ({pins}:{pins? : string[]}) => {
     const makeMarker = (placeIdArray : string[] | undefined) =>{
         console.log("")
         var geocoder = new google.maps.Geocoder();
-        const ids : google.maps.LatLng[] = [];
+        const places : google.maps.LatLng[] = [];
         placeIdArray?.map((p)=>{
             geocoder.geocode({placeId: p})
             .then(({results})=>{
-                results.map((p)=>ids.push(p.geometry?.location))
-                setPlaces(ids);
+                results.map((p)=>places.push(p.geometry?.location))
+                setPlaces(places);
+                setIds(placeIdArray!);
             })
         });
         
-        setIds(placeIdArray!);
+        
     };
 
     if(ids.length != 0 && ids != pins){
