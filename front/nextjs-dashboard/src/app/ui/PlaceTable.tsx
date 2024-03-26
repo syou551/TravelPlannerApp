@@ -44,28 +44,32 @@ const Table = ({places}:{places? : google.maps.places.PlaceResult[]})=>{
             <p>loading...</p>
         )*/}
         <div className='flex justify-center items-center w-full ml-5 mt-3 mr-5'>
-        <table>
-            <thead className='table-afix bg-gray-100'>
-                <tr className='flex justify-center items-center md:gap-20 gap-10 ml-10 mr-10'>
-                    <th>No</th>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>Other</th>
+        <table className='table-auto'>
+            <thead className='bg-gray-100'>
+                <tr>
+                    <th className='px-4 py-2 md:px-16 lg:px-24'>No</th>
+                    <th className='px-4 py-2 md:px-16 lg:px-24'>Name</th>
+                    <th className='px-4 py-2 md:px-16 lg:px-24'>Address</th>
+                    <th className='px-4 py-2 md:px-16 lg:px-24'>Other</th>
                 </tr>
             </thead>
-            <tbody className='table-fix'>
-                <tr key={3} className='flex justify-center items-center md:gap-20 gap-10 ml-10 mr-10'>
-                    <td>{3+1}</td>
-                    <td>{"hoge"}</td>
-                    <td>{"addr"}</td>
-                    <td>Add</td>
+            <tbody>
+                <tr key={3}>
+                    <td className='px-4 py-2 md:px-16 lg:px-24'>{3+1}</td>
+                    <td className='px-4 py-2 md:px-16 lg:px-24'>{"hoge"}</td>
+                    <td className='px-4 py-2 md:px-16 lg:px-24'>{"addr"}</td>
+                    <td className='px-4 py-2 md:px-16 lg:px-24'>
+                        <button className='flex rounded-md justify-center px-4 py-2 bg-blue-100 hover:bg-blue-400 hover:text-white'>Add</button>
+                    </td>
                 </tr>
             {places?.map((p,index)=>(
                 <tr key={index}>
-                    <td>{index+1}</td>
-                    <td>{p.name}</td>
-                    <td>{p.adr_address}</td>
-                    <td>Add</td>
+                    <td className='px-4 py-2 md:px-16 lg:px-24'>{index+1}</td>
+                    <td className='px-4 py-2 md:px-16 lg:px-24'>{p.name}</td>
+                    <td className='px-4 py-2 md:px-16 lg:px-24'>{p.adr_address}</td>
+                    <td className='px-4 py-2 md:px-16 lg:px-24'>
+                        <button className='flex rounded-md justify-center px-4 py-2 bg-blue-100 hover:bg-blue-400 hover:text-white'>Add</button>
+                    </td>
                 </tr>
             ))}
             </tbody>
