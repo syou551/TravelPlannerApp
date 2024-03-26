@@ -2,11 +2,12 @@
 
 import { GoogleMap, MarkerF, useLoadScript, useJsApiLoader, Libraries } from '@react-google-maps/api'
 import { memo, useState } from "react"
+import PlaceTable from "@/app/ui/PlaceTable";
 
 //#region Style
 const containerStyle = {
     width: "100%",
-    height: "86vh",
+    height: "60vh",
   };
   
 const center = {
@@ -15,12 +16,16 @@ const center = {
   };
   
 const zoom = 20;
-const markerLabel: google.maps.MarkerLabel = {
-    text: " ",
+
+const markerLabel = (index : number): google.maps.MarkerLabel =>{
+  const strIndex : string = (index+1)?.toString()!;
+  return ( {
+    text: strIndex,
     fontFamily: "sans-serif",
     fontSize: "15px",
     fontWeight: "bold",
-  };
+  })
+};
   //#endregion
 
 const SearchPlace = ({query}:{query:string}) =>{ 
@@ -95,11 +100,18 @@ const SearchPlace = ({query}:{query:string}) =>{
     return (
         <>
         {isLoaded ? (
-            <div className='flex w-full'>
-            <p>keyword:{query}</p>
-            <GoogleMap mapContainerStyle={containerStyle} onLoad={onLoad} zoom={10}>
-                {(resultsArray?.length !== 0 )? resultsArray?.map((value,index)=><MarkerF key={index} position={(value as google.maps.places.PlaceResult).geometry?.location!} label={markerLabel}></MarkerF>):<></>}               
-            </GoogleMap>
+            <div className='flex w-full items-center flex-col ml-5 mr-5'>
+              <div>
+                <p>keyword:{query}</p>
+              </div>
+              <div className='flex w-full justify-center'>
+                <GoogleMap mapContainerStyle={containerStyle} onLoad={onLoad} zoom={10}>
+                    {(resultsArray?.length !== 0 )? resultsArray?.map((value,index)=><MarkerF key={index} position={(value as google.maps.places.PlaceResult).geometry?.location!} label={markerLabel(index)}></MarkerF>):<></>}               
+                </GoogleMap>
+              </div>
+              <div className='flex w-full justify-center'>
+                <PlaceTable places={(resultsArray?.length !== 0 )?resultsArray:undefined}/>
+              </div>
             </div>
         ) : (
             <p className='flex text-2xl tm-10'>loading...</p>

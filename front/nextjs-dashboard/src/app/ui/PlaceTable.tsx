@@ -1,16 +1,20 @@
 'use client';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, memo} from 'react';
 import { useJsApiLoader } from '@react-google-maps/api'
 
-const Table = ({pins}:{pins? : string[]})=>{
+//searchの検索結果一覧Tableを表示するだけのComponentとしている
+//‘他の関数に今のところ意味なし
+const Table = ({places}:{places? : google.maps.places.PlaceResult[]})=>{
     const { isLoaded, loadError } = useJsApiLoader({
         id: "google-map",
         googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY!,
         libraries: ["places","geocoding"],
         language: 'ja',
       })
+
+
     //#region State
-    const [places, setPlaces] = useState<google.maps.GeocoderResult[]>();
+    const [latlng, setLatlng] = useState<google.maps.GeocoderResult[]>();
     //#endregion
 
     //#region 関数宣言
@@ -18,29 +22,57 @@ const Table = ({pins}:{pins? : string[]})=>{
     const getInfo = () =>{
         var geocoder = new google.maps.Geocoder();
         const ids : google.maps.GeocoderResult[] = [];
-        pins?.map((p)=>{
-            geocoder.geocode({placeId: p})
+        ids?.map((p)=>{
+            geocoder.geocode({placeId: ""})
             .then(({results})=>{
                 if(results.length)ids.push(results[0]);
-                setPlaces(ids);
+                setLatlng(ids);
             })
         });
     };
     //#endregion
 
-    if(isLoaded)getInfo();
+    //詳細情報を取得する処理を記述
 
     return(
         <>
-        { isLoaded ? (
+        {/* isLoaded ? (
             <div className="flex">
                 {places ? <>{places![0].geometry.location.lat()}</> : <div>loading...</div>}
             </div>
         ):(
             <p>loading...</p>
-        )}
-    </>
+        )*/}
+        <div className='flex justify-center items-center w-full ml-5 mt-3 mr-5'>
+        <table>
+            <thead className='table-afix bg-gray-100'>
+                <tr className='flex justify-center items-center md:gap-20 gap-10 ml-10 mr-10'>
+                    <th>No</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Other</th>
+                </tr>
+            </thead>
+            <tbody className='table-fix'>
+                <tr key={3} className='flex justify-center items-center md:gap-20 gap-10 ml-10 mr-10'>
+                    <td>{3+1}</td>
+                    <td>{"hoge"}</td>
+                    <td>{"addr"}</td>
+                    <td>Add</td>
+                </tr>
+            {places?.map((p,index)=>(
+                <tr key={index}>
+                    <td>{index+1}</td>
+                    <td>{p.name}</td>
+                    <td>{p.adr_address}</td>
+                    <td>Add</td>
+                </tr>
+            ))}
+            </tbody>
+        </table>
+        </div>
+        </>
     )
 }
 
-export default Table;
+export default memo(Table);

@@ -16,11 +16,14 @@ const center = {
   };
   
 const zoom = 20;
-const markerLabel: google.maps.MarkerLabel = {
-    text: " ",
-    fontFamily: "sans-serif",
-    fontSize: "15px",
-    fontWeight: "bold",
+const markerLabel = (index : number): google.maps.MarkerLabel =>{
+    const strIndex : string = (index+1)?.toString()!;
+    return ( {
+      text: strIndex,
+      fontFamily: "sans-serif",
+      fontSize: "15px",
+      fontWeight: "bold",
+    })
   };
   //#endregion
 
@@ -78,7 +81,7 @@ const Map = ({pins}:{pins? : string[]}) => {
         <div className="flex justify-center items-center">
             {isLoaded ? (
                 <GoogleMap mapContainerStyle={containerStyle} onLoad={onLoad} zoom={10}>
-                    {(places?.length !== 0 )? places?.map((value, index)=>(<MarkerF key={index} position={value} label={markerLabel}></MarkerF>)):<></>}
+                    {(places?.length !== 0 )? places?.map((value, index)=>(<MarkerF key={index} position={value} label={markerLabel(index)}></MarkerF>)):<></>}
                 </GoogleMap>
             ) : (
                 <p className='flex text-2xl tm-10'>loading...</p>

@@ -61,15 +61,18 @@ const Search = ({id}:{id? : string}) => {
   return (
         <div>
             {isLoaded ? (
+            <>
               <div className='flex ml-5 mr-5 justify-center items-center'>
                 <input type='text' className='flex w-200 rounded-md mt-2 mb-2' onChange={(e)=>setQuery(e.target.value)} value={query}></input>
                 <button className='flex transition rounded-md h-full bg-blue-100 ml-4 hover:bg-blue-400 hover:text-white' onClick={onSearch}>
                   <p className='flex mt-2 mb-2 ml-4 mr-4'>submit</p>
                 </button>
+              </div>
+              <div className='flex'>
                 {/*リフトアップパターンで実装　buttonが押されたときにMapなどコンポーネントが更新*/}
                 <SearchPlace query={keyword}/>
-                {Array.isArray(places) ? places?.map((i,index)=><p key={index}>{i.lat()}</p>) : <>error</>}
               </div>
+            </>
             ) : (
             "loading"
             )}

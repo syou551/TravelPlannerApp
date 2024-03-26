@@ -18,7 +18,7 @@ export default function Page({searchParams}:{
 
   return (
     <div>
-      <p>Dashboard Page</p>
+      <p>Search Page</p>
       <Search></Search>
     </div>
   );

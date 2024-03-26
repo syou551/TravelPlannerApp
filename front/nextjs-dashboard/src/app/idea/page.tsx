@@ -1,7 +1,6 @@
 import Map from "@/app/ui/Map";
 import Table from "@/app/ui/PlaceTable";
-import Search from "@/app/ui/Search"
-import { GoogleMap, MarkerF, useLoadScript, useJsApiLoader, Libraries } from '@react-google-maps/api'
+import Search from "@/app/ui/Search";
 
 
 export default function Page({searchParams}:{
@@ -15,7 +14,7 @@ export default function Page({searchParams}:{
   
   return (
     <div>
-      <p>Dashboard Page</p>
+      <p>Idea Page</p>
       <Map pins={["ChIJ3-glNDnkAGARQplx_kB1WaE"]}/>
       {/*Table要素*/}
       {/*<Table pins={placeIDs}></Table>*/}
