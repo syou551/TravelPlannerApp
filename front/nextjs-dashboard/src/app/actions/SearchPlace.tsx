@@ -65,7 +65,7 @@ const SearchPlace = ({query}:{query:string}) =>{
         var request = {
         //query: '法隆寺',
         query : query,
-        fields: ['name', 'geometry'],
+        fields: ['name', 'geometry','place_id'],
         };
 
         console.log("search now:"+query);

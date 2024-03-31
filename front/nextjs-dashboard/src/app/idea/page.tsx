@@ -1,5 +1,5 @@
 import Map from "@/app/ui/Map";
-import Table from "@/app/ui/PlaceTable";
+import Table from "@/app/ui/Table";
 import Search from "@/app/ui/Search";
 
 
@@ -16,8 +16,8 @@ export default function Page({searchParams}:{
     <div>
       <p>Idea Page</p>
       <Map pins={["ChIJ3-glNDnkAGARQplx_kB1WaE"]}/>
-      {/*Table要素*/}
-      {/*<Table pins={placeIDs}></Table>*/}
+      {/*Table要素 PlaceTableを土台にしてボタンなどの要素を取り除く*/}
+      <Table pins={placeIDs}></Table>
     </div>
   );
 }

@@ -13,14 +13,12 @@ export default function Page({searchParams}:{
   }
 }) {
   
-  //DBからplaceID一覧を取得して表示
-  var placeIDs : string[] = ["ChIJ3-glNDnkAGARQplx_kB1WaE"];
-  var map : google.maps.Map;
+  //IdeaIDを追加関数に渡せるようにする必要がある＝＞useContext?
 
   return (
     <div>
       <Header></Header>
-      <p>Search Page</p>
+      {/*<p>Search Page</p>*/}
       <Search></Search>
     </div>
   );

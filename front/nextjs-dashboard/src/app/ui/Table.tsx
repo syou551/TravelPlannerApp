@@ -2,10 +2,9 @@
 import React, {useEffect, useState, memo} from 'react';
 import { useJsApiLoader } from '@react-google-maps/api'
 
-//searchの検索結果一覧Tableを表示するだけのComponentとしている
-//‘他の関数に今のところ意味なし
-const header : string[] = ["No","Address","Other"];
+const header : string[] = ["No","Name","Address","Other"];
 
+//PlaceID一覧がPropsとして渡されるのでそれを処理してTableとして表示
 const Table = ({places}:{places? : google.maps.places.PlaceResult[]})=>{
     const { isLoaded, loadError } = useJsApiLoader({
         id: "google-map",
@@ -22,6 +21,7 @@ const Table = ({places}:{places? : google.maps.places.PlaceResult[]})=>{
 
     //#region 関数宣言
     //placeId一覧から詳細情報をセットする
+    //geocorderでなくても良い
     const getInfo = () =>{
         var geocoder = new google.maps.Geocoder();
         var ids : string[] = [];
@@ -45,14 +45,20 @@ const Table = ({places}:{places? : google.maps.places.PlaceResult[]})=>{
     //#endregion
 
     if(places != place){
-        getInfo();
+        //getInfo();
         console.log("get...");
     }
     //詳細情報を取得する処理を記述
 
     return(
         <>
-        {isLoaded?
+        {/* isLoaded ? (
+            <div className="flex">
+                {places ? <>{places![0].geometry.location.lat()}</> : <div>loading...</div>}
+            </div>
+        ):(
+            <p>loading...</p>
+        )*/}
         <div className='flex justify-center items-center w-full ml-5 mt-3 mr-5'>
         <table className='table-auto'>
             <thead className='bg-gray-100'>
@@ -65,24 +71,25 @@ const Table = ({places}:{places? : google.maps.places.PlaceResult[]})=>{
             <tbody>
                 <tr key={3}>
                     <td className='px-4 py-2 md:px-16 lg:px-24'>4</td>
+                    <td className='px-4 py-2 md:px-16 lg:px-24'>{"hoge"}</td>
                     <td className='px-4 py-2 md:px-16 lg:px-24'>{"Dummy"}</td>
                     <td className='px-4 py-2 md:px-16 lg:px-24'>
-                        <button className='flex rounded-md justify-center px-4 py-2 bg-blue-100 hover:bg-blue-400 hover:text-white'>Add</button>
+                        <button className='flex rounded-md justify-center px-4 py-2 hover:bg-gray-200'>...</button>
                     </td>
                 </tr>
-            {info?.map((p,index)=>(
+            {places?.map((p,index)=>(
                 <tr key={index}>
                     <td className='px-4 py-2 md:px-16 lg:px-24'>{index+1}</td>
-                    <td className='px-4 py-2 md:px-16 lg:px-24'>{p.formatted_address}</td>
+                    <td className='px-4 py-2 md:px-16 lg:px-24'>{p.name}</td>
+                    <td className='px-4 py-2 md:px-16 lg:px-24'>{p.adr_address}</td>
                     <td className='px-4 py-2 md:px-16 lg:px-24'>
-                        <button className='flex rounded-md justify-center px-4 py-2 bg-blue-100 hover:bg-blue-400 hover:text-white'>Add</button>
+                        <button className='flex rounded-md justify-center px-4 py-2 hover:bg-gray-200'>...</button>
                     </td>
                 </tr>
             ))}
             </tbody>
         </table>
         </div>
-        :<div>loading...</div>}
         </>
     )
 }
