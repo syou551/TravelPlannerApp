@@ -14,10 +14,9 @@ export default function Page({searchParams}:{
   
   return (
     <div>
-      <p>Idea Page</p>
-      <Map pins={["ChIJ3-glNDnkAGARQplx_kB1WaE"]}/>
-      {/*Table要素 PlaceTableを土台にしてボタンなどの要素を取り除く*/}
-      <Table pins={placeIDs}></Table>
+      <p className="flex justify-center text-xl py-3 rounded-md bg-green-100 mb-2">IdeaId: {searchParams?.id ? searchParams?.id!: " noFound"}</p>
+
+      <Map pins={placeIDs}/>
     </div>
   );
 }

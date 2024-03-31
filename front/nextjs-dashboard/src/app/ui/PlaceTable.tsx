@@ -4,9 +4,12 @@ import { useJsApiLoader } from '@react-google-maps/api'
 
 //searchの検索結果一覧Tableを表示するだけのComponentとしている
 //‘他の関数に今のところ意味なし
-const header : string[] = ["No","Address","Other"];
+const header : string[] = ["No","Name","Address","Other"];
 
 const Table = ({places}:{places? : google.maps.places.PlaceResult[]})=>{
+
+    //SearchPlacesで一括取得できるので以下の関数は不要
+    /*
     const { isLoaded, loadError } = useJsApiLoader({
         id: "google-map",
         googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY!,
@@ -49,10 +52,9 @@ const Table = ({places}:{places? : google.maps.places.PlaceResult[]})=>{
         console.log("get...");
     }
     //詳細情報を取得する処理を記述
-
+    */
     return(
         <>
-        {isLoaded?
         <div className='flex justify-center items-center w-full ml-5 mt-3 mr-5'>
         <table className='table-auto'>
             <thead className='bg-gray-100'>
@@ -63,17 +65,11 @@ const Table = ({places}:{places? : google.maps.places.PlaceResult[]})=>{
                 </tr>
             </thead>
             <tbody>
-                <tr key={3}>
-                    <td className='px-4 py-2 md:px-16 lg:px-24'>4</td>
-                    <td className='px-4 py-2 md:px-16 lg:px-24'>{"Dummy"}</td>
-                    <td className='px-4 py-2 md:px-16 lg:px-24'>
-                        <button className='flex rounded-md justify-center px-4 py-2 bg-blue-100 hover:bg-blue-400 hover:text-white'>Add</button>
-                    </td>
-                </tr>
-            {info?.map((p,index)=>(
+            {places?.map((p,index)=>(
                 <tr key={index}>
-                    <td className='px-4 py-2 md:px-16 lg:px-24'>{index+1}</td>
-                    <td className='px-4 py-2 md:px-16 lg:px-24'>{p.formatted_address}</td>
+                    <td className='px-4 py-2 '>{index+1}</td>
+                    <td className='px-4 py-2 '>{p.name}</td>
+                    <td className='px-4 py-2 '>{p.formatted_address}</td>
                     <td className='px-4 py-2 md:px-16 lg:px-24'>
                         <button className='flex rounded-md justify-center px-4 py-2 bg-blue-100 hover:bg-blue-400 hover:text-white'>Add</button>
                     </td>
@@ -82,7 +78,6 @@ const Table = ({places}:{places? : google.maps.places.PlaceResult[]})=>{
             </tbody>
         </table>
         </div>
-        :<div>loading...</div>}
         </>
     )
 }
