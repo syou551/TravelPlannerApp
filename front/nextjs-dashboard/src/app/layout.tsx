@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import SessionProviderSet from "@/app/provider/SessionProvider"
 import "./globals.css";
 import 'dotenv/config';
 
@@ -17,7 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <SessionProviderSet>{children}</SessionProviderSet>
+      </body>
     </html>
   );
 }

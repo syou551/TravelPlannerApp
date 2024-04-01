@@ -4,16 +4,18 @@ import Link from "next/link";
 import Image from "next/image";
 import {memo, useState} from "react";
 import clsx from "clsx";
+import { signIn, useSession, signOut } from "next-auth/react";
 
 const Header = ({Title} : {Title?: string}) =>{
     const [isShow, setIsShow] = useState<Boolean>(false);
-
+    const {data : session} = useSession();
     //AuthProviderのコンテキストから状態を把握してLogin表示と切り替える処理を記述する
     const links = [
         {href : "/myIdea", Name : "Idea一覧"},
         {href : "/setting", Name : "設定"},
         {href : "/", Name : "Log out"}
     ]
+    const callbackUrl = "/login";
 
     return (
         <>
@@ -28,8 +30,11 @@ const Header = ({Title} : {Title?: string}) =>{
                 </div>
                 <p className="flex text-xl">{Title ? Title : ""}</p>
                 <div className="flex items-center mb-3 mr-5">
+                    <button className="flex justifu-center py-1 px-3 bg-blue-100 hover:bg-blue-400 hover:text-white" onClick={session?.user ? ()=> signOut() : ()=>location.replace("/login") }>
+                        <p>{session?.user ? "Logout" : "Log in"}</p>
+                    </button>
                     <button className="flex  w-10 h-10 mr-5">
-                        <Image src={"/sample.jpg"} width={50} height={50} alt="User Icon" className="flex transition rounded-full hover:scale-110"></Image>
+                        <Image src={session?.user?.image ? session?.user?.image! : "/sample.jpg"} width={50} height={50} alt="User Icon" className="flex transition rounded-full hover:scale-110"></Image>
                     </button>
                     <button className={clsx(
                         "transition hover:rounded-md hover:bg-blue-100",
