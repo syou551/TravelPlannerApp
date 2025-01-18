@@ -22,8 +22,8 @@ const Table = ({places}:{places? : google.maps.places.PlaceResult[]})=>{
             {places?.map((p,index)=>(
                 <tr key={index}>
                     <td className='px-4 py-2 lg:px-15'>{index+1}</td>
-                    <td className='px-4 py-2 lg:px-15'>{p.name}</td>
-                    <td className='px-4 py-2 lg:px-15'>{p.formatted_address}</td>
+                    <td className='px-4 py-2 lg:px-15'>{p?.name!}</td>
+                    <td className='px-4 py-2 lg:px-15'>{p?.formatted_address!}</td>
                     <td className='px-4 py-2 lg:px-15'>
                         <button className='flex rounded-md justify-center px-4 py-2 hover:bg-gray-200'>...</button>
                     </td>
